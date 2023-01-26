@@ -14,9 +14,13 @@ class Data {
   });
 
   factory Data.fromJsonBody(String from, String body) {
-    final parsedJson = jsonDecode(body);
-    final type = parsedJson["type"] as String?;
-    return Data(from: from, type: type, body: body);
+    final parsedBody = jsonDecode(body);
+    final type = parsedBody["type"] as String?;
+
+    const encoder = JsonEncoder.withIndent("  ");
+    final prettyBody = encoder.convert(parsedBody);
+
+    return Data(from: from, type: type, body: prettyBody);
   }
 }
 
