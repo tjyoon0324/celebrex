@@ -1,9 +1,38 @@
 import 'package:celebrex/screens/widgets/deal_item.dart';
 import 'package:flutter/material.dart';
 
+import 'models/data.dart';
 import 'models/deal.dart';
 
 class DealsPage extends StatefulWidget {
+  final List<Data> dataList;
+  final List<Deal> deals = [
+    Deal.fromJsonBody("{\"id\":\"1\",\"data_type\":\"covidVaccinationCert\"}"),
+  ];
+  Map<String, List<Data>> dealIdToDataList = {};
+
+  DealsPage({
+    super.key,
+    required this.dataList,
+  }) {
+    Map<String, List<Deal>> dataTypeToDeals = {};
+
+    for (var deal in deals) {
+      var deals = dataTypeToDeals[deal.dataType] ?? [];
+      deals.add(deal);
+      dataTypeToDeals[deal.dataType] = deals;
+    }
+
+    for (var data in dataList) {
+      var deals = dataTypeToDeals[data.type] ?? [];
+      for (var deal in deals) {
+        var dataList = dealIdToDataList[deal.id] ?? [];
+        dataList.add(data);
+        dealIdToDataList[deal.id] = dataList;
+      }
+    }
+  }
+
   @override
   State createState() {
     return _DealsPageState();
@@ -11,10 +40,6 @@ class DealsPage extends StatefulWidget {
 }
 
 class _DealsPageState extends State<DealsPage> {
-  List<Deal> deals = [
-    Deal.fromJsonBody("{\"id\":\"1\",\"data_schema\":\"yo\"}"),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,13 +94,14 @@ class _DealsPageState extends State<DealsPage> {
               ),
             ),
             ListView.builder(
-              itemCount: deals.length,
+              itemCount: widget.deals.length,
               shrinkWrap: true,
               padding: EdgeInsets.only(top: 16),
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return DealItem(
-                    deal: deals[index],
+                    deal: widget.deals[index],
+                    dataList: widget.dealIdToDataList[widget.deals[index].id]!,
                 );
               },
             ),

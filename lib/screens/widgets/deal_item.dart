@@ -1,13 +1,17 @@
 import 'package:celebrex/screens/deal.dart';
+import 'package:celebrex/screens/models/data.dart';
 import 'package:flutter/material.dart';
 
 import '../models/deal.dart';
 
 class DealItem extends StatefulWidget {
   Deal deal;
+  List<Data> dataList;
 
   DealItem({
+    super.key,
     required this.deal,
+    required this.dataList,
   });
 
   @override
@@ -30,30 +34,44 @@ class _DealItemState extends State<DealItem> {
         child: Row(
           children: <Widget>[
             Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Deal ${widget.deal.id}", style: TextStyle(fontSize: 16)),
-                              SizedBox(height: 6),
-                              Text(
-                                "Yo, man",
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.normal,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text("Deal ${widget.deal.id}", style: TextStyle(fontSize: 16)),
+                                SizedBox(height: 6),
+                                Text(
+                                  widget.deal.dataType,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.grey.shade600,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )
-                        )
+                              ],
+                            ),
+                          ),
+                          Text(
+                            "${widget.dataList.length}",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

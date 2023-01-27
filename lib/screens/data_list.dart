@@ -1,3 +1,4 @@
+import 'package:celebrex/screens/const.dart';
 import 'package:flutter/material.dart';
 import 'package:celebrex/screens/widgets/data_item.dart';
 
@@ -11,10 +12,7 @@ class DataListPage extends StatefulWidget {
 }
 
 class _DataPageState extends State<DataListPage> {
-  List<Data> dataList = [
-    Data.fromJsonBody("Medipass", "{\"type\":\"covidVaccinationCert\",\"date\":\"2022-10-12\"}"),
-    Data.fromJsonBody("Medipass", "{\"name\":\"yjlee\",\"date\":\"2022-10-12\"}"),
-  ];
+  List<Data> dataList = Const.dataList;
 
   @override
   Widget build(BuildContext context) {

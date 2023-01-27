@@ -1,3 +1,4 @@
+import 'package:celebrex/screens/const.dart';
 import 'package:celebrex/screens/data_list.dart';
 import 'package:celebrex/screens/deals.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,8 @@ class _HomePageNavBarState extends State<HomePage> {
 
   final List<Widget> _pages = <Widget>[
     DataListPage(),
-    DealsPage(),
-    DealsPage(),
+    DealsPage(dataList: Const.dataList),
+    DealsPage(dataList: Const.dataList),
   ];
 
   void _onItemTapped(int index) {
