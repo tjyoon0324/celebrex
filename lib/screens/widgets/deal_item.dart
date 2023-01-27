@@ -26,7 +26,7 @@ class _DealItemState extends State<DealItem> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return DealPage(deal: widget.deal);
+          return DealPage(deal: widget.deal, dataList: widget.dataList);
         }));
       },
       child: Container(
